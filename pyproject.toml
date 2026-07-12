@@ -27,7 +27,6 @@ spark = [
 dev = [
     "ruff>=0.5",
     "pytest>=8.2",
-    "pytest-cov>=5.0",
 ]
 
 [build-system]
@@ -56,5 +55,5 @@ quote-style = "double"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra --cov=common --cov-report=term-missing"
+addopts = "-ra"
 pythonpath = ["."]

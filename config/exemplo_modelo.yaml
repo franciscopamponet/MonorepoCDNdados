@@ -1,0 +1,57 @@
+# =============================================================================
+# Config template de um modelo (Rule 07 — pipeline config-driven).
+#
+# Todo caminho, tabela, hiperparâmetro e nome de recurso mora AQUI, nunca no código.
+# O nome do arquivo bate com o nome do modelo (Rule 05):
+#   config/<nome>.yaml  ↔  models/<nome>/
+#
+# Este é o "exemplo_modelo"; copie e renomeie para o seu modelo real.
+# Validado por common.config.BaseModelConfig (ou um schema que o estenda).
+# =============================================================================
+
+# Nome do modelo. Deve bater com a pasta em models/<name>/ (Rule 05).
+name: exemplo_modelo
+
+# ---------------------------------------------------------------------------
+# Fonte de dados (Decisão 3). O campo 'type' seleciona a implementação concreta
+# em data/sources/. O restante dos campos é repassado à implementação.
+# ---------------------------------------------------------------------------
+data_source:
+  type: parquet          # parquet (default local) | spark_table | sql
+  path: data/raw/exemplo.parquet
+
+  # --- Alternativa: tabela Spark (requer o extra 'spark'/'databricks') ---
+  # type: spark_table
+  # table: catalogo.schema.minha_tabela
+  # write_mode: overwrite
+
+  # --- Alternativa: banco SQL (requer sqlalchemy + driver) ---
+  # type: sql
+  # connection: postgresql+psycopg://user:pass@host:5432/db
+  # query: SELECT * FROM minha_tabela
+  # table: minha_tabela        # usado na escrita (e na leitura se não houver query)
+
+# ---------------------------------------------------------------------------
+# Tracking do MLflow (consumido só por common/tracking.py — Rule 01).
+# databricks=false é o default seguro (tracking local em ./mlruns, nome simples).
+# databricks=true ainda precisa de validação empírica (ver TODO em tracking.py).
+# ---------------------------------------------------------------------------
+tracking:
+  experiment_name: exemplo_modelo
+  databricks: false
+  tracking_uri: ./mlruns
+  # registry_uri: null
+
+# Caminho de saída dos artefatos processados.
+output_dir: data/processed
+
+# ---------------------------------------------------------------------------
+# Hiperparâmetros do modelo. Chaves livres; consumidas por build_model/train.
+# Nada disso pode estar hardcoded no código (Rule 07).
+# ---------------------------------------------------------------------------
+params:
+  test_size: 0.2
+  random_state: 42
+  # exemplos de hiperparâmetros de um estimador:
+  # n_estimators: 300
+  # max_depth: 8
