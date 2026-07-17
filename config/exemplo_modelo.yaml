@@ -33,13 +33,15 @@ data_source:
 
 # ---------------------------------------------------------------------------
 # Tracking do MLflow (consumido só por common/tracking.py — Rule 01).
-# databricks=false é o default seguro (tracking local em ./mlruns, nome simples).
+# databricks=false é o default seguro: backend SQLite local, experimento por nome
+# simples. ATENÇÃO: o file store './mlruns' NÃO funciona mais (o MLflow o colocou
+# em maintenance mode); use SQLite, que também habilita o Model Registry local.
 # databricks=true ainda precisa de validação empírica (ver TODO em tracking.py).
 # ---------------------------------------------------------------------------
 tracking:
   experiment_name: exemplo_modelo
   databricks: false
-  tracking_uri: ./mlruns
+  tracking_uri: sqlite:///mlflow.db
   # registry_uri: null
 
 # Caminho de saída dos artefatos processados.
@@ -50,8 +52,22 @@ output_dir: data/processed
 # Nada disso pode estar hardcoded no código (Rule 07).
 # ---------------------------------------------------------------------------
 params:
+  # --- seleção de colunas (consumido por prepare_data) ---
+  target: y                    # coluna alvo (obrigatório)
+  features: [x1, x2, x3]       # opcional; default = todas as colunas menos o alvo
+
+  # --- split (consumido por prepare_data, via common/splits.py) ---
+  split: random                # random (default) | temporal
   test_size: 0.2
   random_state: 42
-  # exemplos de hiperparâmetros de um estimador:
-  # n_estimators: 300
-  # max_depth: 8
+  # stratify_col: y            # só para split random
+  # --- alternativa temporal ---
+  # split: temporal
+  # time_col: data
+  # cutoff: "2024-03-01"       # ou use test_size no lugar de cutoff
+
+  # --- hiperparâmetros do estimador (consumido por build_model) ---
+  n_estimators: 100
+  max_depth: 8
+  # min_samples_leaf: 1
+  # class_weight: balanced

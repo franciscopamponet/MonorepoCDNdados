@@ -32,6 +32,8 @@ htmlcov/
 # --- MLflow ---
 mlruns/
 mlartifacts/
+mlflow.db
+mlflow.db-journal
 
 # --- Dados ---
 data/raw/

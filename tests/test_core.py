@@ -22,7 +22,8 @@ def test_load_config_valida_exemplo():
     assert cfg.name == "exemplo_modelo"
     assert cfg.data_source.type == "parquet"
     assert cfg.tracking.databricks is False
-    assert cfg.tracking.tracking_uri == "./mlruns"
+    # File store ('./mlruns') não é mais suportado pelo MLflow; o default é SQLite.
+    assert cfg.tracking.tracking_uri.startswith("sqlite:///")
 
 
 def test_load_config_arquivo_inexistente():

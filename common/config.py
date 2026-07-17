@@ -31,14 +31,16 @@ class DataSourceConfig(BaseModel):
 class TrackingConfig(BaseModel):
     """Config de tracking do MLflow (consumido apenas por `common/tracking.py`).
 
-    `databricks=False` (default) → tracking local em `tracking_uri` (ex.: `./mlruns`),
-    experimento por nome simples. `databricks=True` → modo Databricks (ver TODO em
-    `common/tracking.py`; ainda não validado empiricamente).
+    `databricks=False` (default) → tracking local no `tracking_uri`, experimento por
+    nome simples. O default é um backend SQLite: o file store (`./mlruns`) não é mais
+    suportado pelo MLflow e o SQLite habilita o Model Registry local.
+    `databricks=True` → modo Databricks (ver TODO em `common/tracking.py`; ainda não
+    validado empiricamente).
     """
 
     experiment_name: str
     databricks: bool = False
-    tracking_uri: str = "./mlruns"
+    tracking_uri: str = "sqlite:///mlflow.db"
     registry_uri: str | None = None
 
 

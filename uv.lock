@@ -354,6 +354,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "mlflow" },
+    { name = "numpy" },
     { name = "pandas" },
     { name = "pyarrow" },
     { name = "pydantic" },
@@ -381,6 +382,7 @@ requires-dist = [
     { name = "databricks-connect", marker = "extra == 'databricks'", specifier = ">=15.1" },
     { name = "databricks-sdk", marker = "extra == 'databricks'", specifier = ">=0.29" },
     { name = "mlflow", specifier = ">=2.14" },
+    { name = "numpy", specifier = ">=1.26" },
     { name = "pandas", specifier = ">=2.2" },
     { name = "pyarrow", specifier = ">=16" },
     { name = "pydantic", specifier = ">=2.7" },
