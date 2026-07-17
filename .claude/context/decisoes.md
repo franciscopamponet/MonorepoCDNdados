@@ -40,12 +40,16 @@ por tabela Spark é trocar uma linha de config, não reescrever `prepare_data`.
 
 ## 4. Mini-cérebro + raiz mínima
 
-**Decisão:** 100% do conteúdo de IA em `ai/`. Na raiz, só ponteiros (`AGENTS.md`,
-`CLAUDE.md`). Nada de `_guia.md` espalhado por pasta. Convenção legível por qualquer
-IA, não só Claude.
+**Decisão:** 100% do conteúdo de IA em `.claude/`. Na raiz, só ponteiros (`AGENTS.md`,
+`CLAUDE.md`). Nada de `_guia.md` espalhado por pasta. O **conteúdo** é neutro: legível
+por qualquer IA ou pessoa, não só pelo Claude.
 
 **Racional:** o conhecimento viaja com o repo e é encontrável num lugar só. Ponteiros
 neutros (`AGENTS.md`) permitem que qualquer ferramenta descubra o padrão.
+
+> **Revisão (ADR 0006):** a localização mudou de `ai/` para `.claude/`, alinhando com
+> a ferramenta usada no dia a dia do núcleo. O princípio não mudou — só o endereço.
+> Ver `docs/adr/0006-cerebro-em-claude.md`, incluindo os trade-offs aceitos.
 
 ## 5. Evolução forward-only
 

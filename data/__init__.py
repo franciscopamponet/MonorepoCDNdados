@@ -1,1 +1,1 @@
-"""Implementações concretas da interface de dados (ver `ai/guides/data.md`)."""
+"""Implementações concretas da interface de dados (ver `.claude/guides/data.md`)."""

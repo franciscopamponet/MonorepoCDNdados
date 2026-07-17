@@ -13,7 +13,7 @@ de modo que qualquer pessoa (ou IA) que clone uma cópia dele entenda e siga o p
 ## Princípio-guia: mini-cérebro nativo
 
 Toda a inteligência de execução — contexto, rules, guias, skills — viaja DENTRO do
-repo, como arquivos versionados em `ai/`. Se algo depende de conhecimento externo
+repo, como arquivos versionados em `.claude/`. Se algo depende de conhecimento externo
 (a cabeça de uma pessoa, um vault pessoal, um doc no Drive) para funcionar, está errado.
 
 ## Como se usa

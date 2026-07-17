@@ -4,14 +4,14 @@
 
 ```
 .
-├── AGENTS.md                 ← índice: rules em ai/rules/, guias em ai/guides/
+├── AGENTS.md                 ← índice: rules em .claude/rules/, guias em .claude/guides/
 ├── CLAUDE.md                 ← 1 linha: "leia o AGENTS.md". Zero conteúdo próprio.
 ├── README.md
 ├── pyproject.toml            ← FONTE ÚNICA de dependências (uv)
 ├── uv.lock
 ├── .gitignore
 ├── .github/workflows/        ← CI: lint, testes, check de raiz mínima, check de manifesto em sync
-├── ai/                       ← CÉREBRO DE IA — 100% do contexto/rules/guias/skills
+├── .claude/                  ← CÉREBRO DE IA — 100% do contexto/rules/guias/skills (pasta oculta)
 │   ├── context/              ← o que é o projeto, arquitetura, decisões, glossário
 │   ├── rules/                ← comportamento: o que a IA pode e não pode fazer
 │   ├── guides/               ← 1 guia por etapa: config, data, models, common, entrypoints, platform
@@ -51,7 +51,7 @@ MLflow é **OBRIGATÓRIO sempre**. O toggle decide apenas ONDE ele guarda os dad
 
 A raiz é uma **vitrine de ponteiros**, não um depósito. Só fica na raiz o que
 tecnicamente não funciona em outro lugar. O critério é **requisito técnico**, não
-gosto. Todo conteúdo de IA mora 100% em `ai/`.
+gosto. Todo conteúdo de IA mora 100% em `.claude/`.
 
 ### Por que cada arquivo da raiz não pode sair de lá
 

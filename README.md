@@ -9,7 +9,7 @@
 ## O que é
 
 Este projeto nasceu como **cópia independente** do esqueleto canônico. Toda a
-inteligência de execução (contexto, rules, guias) mora em [`ai/`](ai/) — o
+inteligência de execução (contexto, rules, guias) mora em [`.claude/`](.claude/) — o
 "mini-cérebro nativo". Comece por [`AGENTS.md`](AGENTS.md).
 
 ## Como começar (a partir do esqueleto)
@@ -34,16 +34,18 @@ inteligência de execução (contexto, rules, guias) mora em [`ai/`](ai/) — o
 
 ## Onde ficam as regras
 
-**A leitura de [`ai/rules/`](ai/rules/) é obrigatória antes de qualquer alteração.**
+**A leitura de [`.claude/rules/`](.claude/rules/) é obrigatória antes de qualquer alteração.**
 
-- Contexto e arquitetura: [`ai/context/`](ai/context/)
-- Rules (o que pode/não pode): [`ai/rules/`](ai/rules/)
-- Guias por etapa: [`ai/guides/`](ai/guides/)
+- Contexto e arquitetura: [`.claude/context/`](.claude/context/)
+- Rules (o que pode/não pode): [`.claude/rules/`](.claude/rules/)
+- Guias por etapa: [`.claude/guides/`](.claude/guides/)
 - Decisões de arquitetura: [`docs/adr/`](docs/adr/)
+
+> `.claude/` é uma pasta oculta — use `ls -a` para enxergá-la.
 
 ## Estrutura
 
-Ver [`ai/context/arquitetura.md`](ai/context/arquitetura.md) para a estrutura-alvo
+Ver [`.claude/context/arquitetura.md`](.claude/context/arquitetura.md) para a estrutura-alvo
 completa e os invariantes.
 
 ---

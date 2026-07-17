@@ -21,7 +21,7 @@ se o toggle for SIM.
 `evaluate_model.py`, `orchestrator.py`. Nem mais, nem menos.
 
 **Mini-cérebro nativo** — o princípio de que toda a inteligência de execução
-(contexto, rules, guias, skills) mora versionada dentro do repo, em `ai/`. Nada
+(contexto, rules, guias, skills) mora versionada dentro do repo, em `.claude/`. Nada
 depende de conhecimento externo.
 
 **DataSource** — o `Protocol` de interface de dados neutra definido em `common/`. As

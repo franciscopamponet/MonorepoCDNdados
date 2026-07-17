@@ -1,6 +1,10 @@
 # ADR 0004 — Mini-cérebro nativo + raiz mínima
 
-**Status:** Aceita
+**Status:** Parcialmente substituída pela [ADR 0006](0006-cerebro-em-claude.md)
+
+> A ADR 0006 mudou apenas a **localização** do mini-cérebro (`ai/` → `.claude/`).
+> O princípio do mini-cérebro nativo e o princípio da raiz mínima continuam
+> **plenamente válidos**. Onde este documento diz `ai/`, leia `.claude/`.
 
 ## Contexto
 Conhecimento de execução espalhado (na cabeça das pessoas, em docs externos, ou em
