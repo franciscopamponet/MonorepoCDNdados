@@ -11,7 +11,7 @@ import importlib
 import pandas as pd
 import pytest
 
-from common.config import BaseModelConfig, load_config
+from common.config import BaseModelConfig, TrackingConfig, load_config
 from common.data_source import DataSource, build_data_source
 from common.splits import random_split, temporal_split
 
@@ -21,9 +21,18 @@ def test_load_config_valida_exemplo():
     assert isinstance(cfg, BaseModelConfig)
     assert cfg.name == "exemplo_modelo"
     assert cfg.data_source.type == "parquet"
-    assert cfg.tracking.databricks is False
+    assert cfg.tracking.experiment_name
+    # Nada de asserção sobre `tracking.databricks` aqui: o valor depende do toggle
+    # escolhido no init, e este teste viaja para a cópia (Decisão 1).
     # File store ('./mlruns') não é mais suportado pelo MLflow; o default é SQLite.
     assert cfg.tracking.tracking_uri.startswith("sqlite:///")
+
+
+def test_tracking_local_e_o_default_do_schema():
+    """O default do schema é local, independente do que o config de exemplo diga."""
+    cfg = TrackingConfig(experiment_name="x")
+    assert cfg.databricks is False
+    assert cfg.tracking_uri.startswith("sqlite:///")
 
 
 def test_load_config_arquivo_inexistente():
