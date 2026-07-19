@@ -1,0 +1,64 @@
+# =============================================================================
+# CI — as cancelas do repo.
+#
+# Uma regra escrita que não é verificada é uma regra ignorada. Este workflow é o
+# que transforma as rules de .claude/rules/ em barreiras automáticas: se uma delas
+# for violada, o merge não passa.
+#
+# Cada cancela é um step NOMEADO, para que a violação apareça identificável no
+# check da UI do GitHub. As cancelas 4, 5 e 6 delegam a scripts em tools/, que são
+# os MESMOS que você roda localmente — o CI não tem lógica própria escondida no YAML.
+# =============================================================================
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Cancela execuções antigas do mesmo ref quando chega um push novo.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cancelas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Instalar Python + dependências (núcleo, sem extras de plataforma)
+        run: uv sync
+
+      # --- Cancela 1: estilo e lint ---------------------------------------
+      - name: ruff check
+        run: uv run ruff check .
+
+      - name: ruff format --check
+        run: uv run ruff format --check .
+
+      # --- Cancela 2: testes ----------------------------------------------
+      - name: pytest
+        run: uv run pytest
+
+      # --- Cancela 3: raiz mínima (Rule 04) -------------------------------
+      - name: Raiz mínima
+        run: uv run python tools/check_root.py
+
+      # --- Cancela 4: manifesto em sync (Rules 02 e 03) -------------------
+      - name: Manifesto em sync
+        run: uv run python tools/check_manifest.py
+
+      # --- Cancela 5: MLflow centralizado (Rule 01) ----------------------
+      - name: Sem vazamento de MLflow
+        run: uv run python tools/check_mlflow.py
+
+      # --- Cancela 6: plataforma isolada (Rule 06) -----------------------
+      - name: Sem vazamento de plataforma
+        run: uv run python tools/check_platform.py

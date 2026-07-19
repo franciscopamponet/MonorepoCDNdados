@@ -161,12 +161,15 @@ def test_init_rejeita_segunda_execucao(copia_do_esqueleto):
     """Rodar duas vezes não pode corromper o projeto (guarda de pré-voo)."""
     _init(copia_do_esqueleto, databricks="no")
 
-    # Sem Databricks, tools/ some inteira (gen_conda.py removido + init.py autodestruído).
-    assert not (copia_do_esqueleto / "tools").exists()
+    # Sem Databricks, gen_conda.py é removido e init.py se autodestrói — mas as cancelas
+    # (check_*.py) sobrevivem: o CI é o mesmo com ou sem Databricks (ver check_manifest.py).
+    tools = copia_do_esqueleto / "tools"
+    assert not (tools / "gen_conda.py").exists()
+    assert not (tools / "init.py").exists()
+    assert (tools / "check_root.py").exists()
 
     # Simula alguém restaurando o script do histórico do git e rodando de novo.
-    (copia_do_esqueleto / "tools").mkdir()
-    shutil.copy(Path.cwd() / "tools" / "init.py", copia_do_esqueleto / "tools" / "init.py")
+    shutil.copy(Path.cwd() / "tools" / "init.py", tools / "init.py")
     segunda = _rodar(
         [
             sys.executable,
