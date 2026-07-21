@@ -6,11 +6,18 @@
 
 <!-- PREENCHER: uma frase dizendo o que este projeto faz. -->
 
+## 👋 Chegou agora? Comece aqui
+
+Se você é analista e nunca viu este padrão, leia o
+**[Guia do Analista](docs/GUIA-DO-ANALISTA.md)** — ele te leva, narrado e sem pressupor
+nada, da cópia do repositório até o primeiro pipeline rodando.
+
 ## O que é
 
 Este projeto nasceu como **cópia independente** do esqueleto canônico. Toda a
 inteligência de execução (contexto, rules, guias) mora em [`.claude/`](.claude/) — o
-"mini-cérebro nativo". Comece por [`AGENTS.md`](AGENTS.md).
+"mini-cérebro nativo". A porta de entrada para IAs é o [`AGENTS.md`](AGENTS.md); a porta
+de entrada para pessoas é o [Guia do Analista](docs/GUIA-DO-ANALISTA.md).
 
 ## Como começar (a partir do esqueleto)
 
