@@ -191,6 +191,64 @@ def test_init_rejeita_segunda_execucao(copia_do_esqueleto):
     assert not (copia_do_esqueleto / "models" / "outro").exists()
 
 
+def _git(cmd: list[str], cwd: Path) -> subprocess.CompletedProcess:
+    base = ["git", "-c", "user.email=t@t.com", "-c", "user.name=teste"]
+    return _rodar(base + cmd, cwd=cwd)
+
+
+def test_init_aborta_com_arvore_git_suja(copia_do_esqueleto):
+    """Guarda de segurança: o init recusa rodar sobre uma árvore git suja.
+
+    O init APAGA/reescreve arquivos; sobre trabalho não commitado, isso seria difícil
+    de desfazer. Numa cópia recém-clonada a árvore está limpa e a guarda não dispara.
+    """
+    copia = copia_do_esqueleto
+    assert _git(["init", "-q"], cwd=copia).returncode == 0
+    assert _git(["add", "-A"], cwd=copia).returncode == 0
+    assert _git(["commit", "-qm", "cópia inicial"], cwd=copia).returncode == 0
+
+    # Suja a árvore com um arquivo não rastreado.
+    (copia / "trabalho_em_andamento.txt").write_text("wip", encoding="utf-8")
+
+    resultado = _rodar(
+        [
+            sys.executable,
+            "tools/init.py",
+            "--name",
+            "X",
+            "--databricks",
+            "no",
+            "--model",
+            "x",
+            "--yes",
+        ],
+        cwd=copia,
+    )
+    assert resultado.returncode == 1
+    assert "não commitadas" in resultado.stdout
+    # Nada foi mutilado: o modelo de exemplo continua intacto.
+    assert (copia / "models" / "exemplo_modelo").is_dir()
+
+    # Com a árvore limpa de novo, o init roda normalmente.
+    assert _git(["add", "-A"], cwd=copia).returncode == 0
+    assert _git(["commit", "-qm", "wip"], cwd=copia).returncode == 0
+    ok = _rodar(
+        [
+            sys.executable,
+            "tools/init.py",
+            "--name",
+            "X",
+            "--databricks",
+            "no",
+            "--model",
+            "x",
+            "--yes",
+        ],
+        cwd=copia,
+    )
+    assert ok.returncode == 0, f"init falhou com árvore limpa:\n{ok.stdout}\n{ok.stderr}"
+
+
 # ---------------------------------------------------------------------------
 # Toggle = NÃO
 # ---------------------------------------------------------------------------

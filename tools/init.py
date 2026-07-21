@@ -124,6 +124,40 @@ def ja_inicializado() -> str | None:
     return None
 
 
+def arvore_git_suja() -> bool:
+    """True se ESTA cópia é um repo git próprio com alterações não commitadas.
+
+    Guarda de segurança: o init reescreve e APAGA arquivos. Rodá-lo sobre uma árvore
+    suja mistura essa reescrita com trabalho não salvo e dificulta desfazer. Numa
+    cópia recém-obtida ('Use this template' + clone) a árvore está limpa, então esta
+    guarda não atrapalha o fluxo normal — ela só protege quem já começou a mexer.
+
+    Só bloqueia quando dá para julgar com segurança. Se não há git (ou o comando não
+    existe), ou se a raiz do repo não é ESTA pasta (ex.: a cópia foi parar dentro de
+    outro repo), a guarda é pulada: aí não há uma árvore nossa a avaliar.
+    """
+    try:
+        topo = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=RAIZ,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
+    if Path(topo).resolve() != RAIZ.resolve():
+        return False
+    sujo = subprocess.run(
+        ["git", "status", "--porcelain"],
+        cwd=RAIZ,
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+    return bool(sujo)
+
+
 # ---------------------------------------------------------------------------
 # Passos do scaffolding
 # ---------------------------------------------------------------------------
@@ -290,6 +324,13 @@ def main(argv: list[str] | None = None) -> int:
     if motivo:
         print(f"ERRO: este repo parece já ter sido inicializado ({motivo}).")
         print("O init roda uma única vez. Se precisa mesmo repetir, parta de uma cópia limpa.")
+        return 1
+
+    if arvore_git_suja():
+        print("ERRO: há alterações não commitadas nesta cópia.")
+        print("O init reescreve e APAGA arquivos. Rode-o sobre uma árvore LIMPA, para")
+        print("poder desfazer com 'git checkout .' se o resultado não for o esperado.")
+        print("Commite (ou descarte) suas mudanças e rode de novo.")
         return 1
 
     print("=" * 70)
