@@ -24,7 +24,7 @@ O `init.py` pergunta:
 - **Databricks? S/N** — o toggle (Decisão 1):
   - **Não** → remove `platform/`, `entrypoints/run_serverless.py`, o extra `databricks`
     do pyproject e `tools/gen_conda.py`. As **cancelas** (`check_*.py`, `check.py`)
-    **sobrevivem** — o CI é o mesmo com ou sem Databricks (ver ADR 0007).
+    **sobrevivem** — o CI é o mesmo com ou sem Databricks (ver decisão 7 em docs/context/decisoes.md).
   - **Sim** → mantém `platform/` e regenera o `conda.yaml` em sync (Rule 03).
 - **Nome do primeiro modelo** (snake_case) → renomeia `models/exemplo_modelo/` e
   `config/exemplo_modelo.yaml` para esse nome, atualizando todas as referências.
@@ -59,8 +59,8 @@ databricks bundle validate -t dev
 ```
 
 ## 5. Antes de mexer em qualquer coisa
-Leia `.claude/rules/` (obrigatório) e o guia da camada que você vai tocar em
-`.claude/guides/`. Para tarefas comuns, há skills irmãs:
+Leia `docs/rules/` (obrigatório) e o guia da camada que você vai tocar em
+`docs/guides/`. Para tarefas comuns, há skills irmãs:
 [`adicionar-novo-modelo.md`](adicionar-novo-modelo.md),
 [`adicionar-nova-fonte-de-dados.md`](adicionar-nova-fonte-de-dados.md),
 [`adicionar-dependencia.md`](adicionar-dependencia.md).

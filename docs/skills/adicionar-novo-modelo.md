@@ -33,7 +33,7 @@ Procedimento para criar `models/<novo>/` respeitando a anatomia de 5 arquivos
    Nada de valor fixo no `.py` — tudo vem daqui (Rule 07).
 
 4. **Implemente a lógica do modelo** dentro dos 5 arquivos, respeitando o contrato de
-   entrada/saída de cada um (ver `.claude/guides/models.md`). Regras que doem se
+   entrada/saída de cada um (ver `docs/guides/models.md`). Regras que doem se
    ignoradas:
    - Só o `orchestrator.py` fala com tracking, via `common/tracking.py` (Rule 01).
    - `prepare_data` pede o dado à interface `DataSource`; nunca sabe de onde vem.

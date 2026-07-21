@@ -20,11 +20,10 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 
 # Cada entrada tem um motivo TÉCNICO para estar na raiz. Ver a tabela em
-# .claude/context/arquitetura.md. Adicionar algo aqui é uma decisão de arquitetura,
+# docs/context/arquitetura.md. Adicionar algo aqui é uma decisão de arquitetura,
 # não uma conveniência — se não há requisito técnico, o arquivo vai para uma subpasta.
 ARQUIVOS_PERMITIDOS = {
-    "AGENTS.md": "tool discovery: como uma IA descobre o padrão ao clonar o repo",
-    "CLAUDE.md": "tool discovery: ponteiro para o AGENTS.md",
+    "CLAUDE.md": "tool discovery: ponto de entrada único para IA/pessoa (decisão 8)",
     "README.md": "é o que o GitHub renderiza na página do repo",
     "pyproject.toml": "o uv só procura na raiz",
     "uv.lock": "o uv só procura na raiz",
@@ -33,11 +32,11 @@ ARQUIVOS_PERMITIDOS = {
 
 PASTAS_PERMITIDAS = {
     ".github": "o GitHub Actions só executa a partir daqui",
-    ".claude": "mini-cérebro nativo: 100% do conteúdo de IA (ADR 0006)",
+    ".claude": "contexto DESTE projeto, preenchido ao longo do tempo (decisão 8)",
     "common": "lógica compartilhada entre modelos",
     "config": "config por modelo (pipeline config-driven)",
     "data": "implementações concretas da interface de dados",
-    "docs": "documentação e ADRs",
+    "docs": "documentação do MOLDE: context, rules, guides, skills, decisões",
     "entrypoints": "launchers finos",
     "models": "modelos, na anatomia de 5 arquivos",
     "platform": "casca opcional de plataforma (podada se toggle = Não)",
@@ -47,7 +46,7 @@ PASTAS_PERMITIDAS = {
 
 # Para onde mandar o intruso, conforme o tipo.
 SUGESTOES = {
-    ".md": "docs/ (ou .claude/context/ se for contexto de IA)",
+    ".md": "docs/ se for sobre o molde; .claude/context/ se for contexto deste projeto",
     ".py": "tools/ se for script; common/ se for lógica compartilhada",
     ".yaml": "config/ se for config de modelo; platform/ se for de plataforma",
     ".yml": "config/ se for config de modelo; platform/ se for de plataforma",
@@ -112,7 +111,7 @@ def main() -> int:
     print("ERRO: RAIZ MÍNIMA VIOLADA (Rule 04)\n")
     print("A raiz deste repo é uma VITRINE DE PONTEIROS, não um depósito. Só pode")
     print("ficar na raiz o que tecnicamente não funciona em outro lugar — o critério")
-    print("é requisito técnico, não conveniência. Ver .claude/context/arquitetura.md.\n")
+    print("é requisito técnico, não conveniência. Ver docs/context/arquitetura.md.\n")
     print("Encontrei na raiz, sem permissão:\n")
 
     for nome in intrusos:
@@ -122,7 +121,7 @@ def main() -> int:
 
     print("\nSe você acredita que este arquivo TEM um requisito técnico que o obriga")
     print("a estar na raiz, adicione-o à allowlist em tools/check_root.py junto com o")
-    print("motivo técnico — e registre a decisão em docs/adr/.")
+    print("motivo técnico — e registre a decisão em docs/context/decisoes.md.")
     return 1
 
 

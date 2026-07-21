@@ -54,8 +54,9 @@ MODELO_ORIGINAL = "exemplo_modelo"
 NOME_ESQUELETO = "esqueleto-ciencia-de-dados"
 PLACEHOLDER_TITULO = "<!-- PREENCHER: nome do projeto -->"
 
-# Onde o token do modelo pode aparecer. Restrito de propósito: o mini-cérebro
-# (.claude/) e os ADRs falam do esqueleto em geral e NÃO devem ser reescritos.
+# Onde o token do modelo pode aparecer. Restrito de propósito: a documentação do molde
+# (docs/) e o contexto do projeto (.claude/) falam do esqueleto em geral, com o
+# exemplo_modelo como referência canônica, e NÃO devem ser reescritos pelo rename.
 PASTAS_COM_MODELO = ["entrypoints", "models", "config", "tests", "platform"]
 EXTENSOES_TEXTO = {".py", ".yaml", ".yml", ".toml", ".md", ""}
 
@@ -403,7 +404,7 @@ def main(argv: list[str] | None = None) -> int:
     if usa_databricks:
         print("  5. preencha os <PREENCHER: ...> em platform/databricks.yml e resources/")
         print("     e valide com: databricks bundle validate -t dev")
-    print("  * leia .claude/rules/ antes de alterar qualquer coisa")
+    print("  * leia docs/rules/ antes de alterar qualquer coisa")
     print("  * preencha os <!-- PREENCHER: ... --> restantes no README.md")
     print("-" * 70)
     return 0

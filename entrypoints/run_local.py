@@ -1,7 +1,7 @@
 """Launcher fino — execução LOCAL (toggle Databricks = Não).
 
 Papel: parsear o caminho do config e chamar o orchestrator. Nada além disso.
-Zero lógica de negócio (ver `.claude/guides/entrypoints.md`).
+Zero lógica de negócio (ver `docs/guides/entrypoints.md`).
 
 Uso:
     uv run python entrypoints/run_local.py --config config/exemplo_modelo.yaml

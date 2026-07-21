@@ -37,7 +37,7 @@ uv run python tools/gen_conda.py --check    # CI: falha se estiver defasado (Rul
 
 A cancela `tools/check_manifest.py` refaz essa checagem no CI e **pula** quando
 `platform/` não existe (toggle = Não) — o CI é o mesmo com ou sem Databricks
-(ver [ADR 0007](../../docs/adr/0007-cancelas-sobrevivem-ao-toggle.md)).
+(ver a decisão 7 em [decisoes.md](../context/decisoes.md)).
 
 ## Como eu mexo aqui
 

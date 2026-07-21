@@ -146,15 +146,17 @@ def test_suite_do_projeto_novo_passa(copia_do_esqueleto, databricks):
 
 
 @pytest.mark.parametrize("databricks", ["yes", "no"])
-def test_init_nao_toca_o_mini_cerebro(copia_do_esqueleto, databricks):
-    """O .claude/ descreve o esqueleto em geral; o init não pode reescrevê-lo."""
-    antes = (Path.cwd() / ".claude" / "context" / "arquitetura.md").read_text(encoding="utf-8")
+def test_init_nao_toca_a_doc_do_molde(copia_do_esqueleto, databricks):
+    """docs/ descreve o molde (com exemplo_modelo como referência); o rename não o toca."""
+    antes = (Path.cwd() / "docs" / "context" / "arquitetura.md").read_text(encoding="utf-8")
     _init(copia_do_esqueleto, databricks=databricks)
-    depois = (copia_do_esqueleto / ".claude" / "context" / "arquitetura.md").read_text(
+    depois = (copia_do_esqueleto / "docs" / "context" / "arquitetura.md").read_text(
         encoding="utf-8"
     )
     assert antes == depois
-    assert (copia_do_esqueleto / ".claude" / "rules").is_dir()
+    assert (copia_do_esqueleto / "docs" / "rules").is_dir()
+    # E o contexto do projeto (.claude/) continua presente para a cópia preencher.
+    assert (copia_do_esqueleto / ".claude" / "context" / "projeto.md").exists()
 
 
 def test_init_rejeita_segunda_execucao(copia_do_esqueleto):

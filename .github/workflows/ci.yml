@@ -2,7 +2,7 @@
 # CI — as cancelas do repo.
 #
 # Uma regra escrita que não é verificada é uma regra ignorada. Este workflow é o
-# que transforma as rules de .claude/rules/ em barreiras automáticas: se uma delas
+# que transforma as rules de docs/rules/ em barreiras automáticas: se uma delas
 # for violada, o merge não passa.
 #
 # Cada cancela é um step NOMEADO, para que a violação apareça identificável no

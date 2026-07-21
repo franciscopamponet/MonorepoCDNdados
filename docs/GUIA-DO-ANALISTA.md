@@ -4,12 +4,13 @@ Bem-vindo. Se você é analista de dados do núcleo e nunca viu este padrão, es
 documento certo. A meta é honesta e específica: você sair da cópia do repositório até o
 seu primeiro pipeline rodando **sem precisar perguntar nada a ninguém**. Ele é a versão
 *narrada* — o passo a passo enxuto, em forma de checklist, está na skill
-[`iniciar-projeto-novo-a-partir-do-esqueleto.md`](../.claude/skills/iniciar-projeto-novo-a-partir-do-esqueleto.md).
+[`iniciar-projeto-novo-a-partir-do-esqueleto.md`](skills/iniciar-projeto-novo-a-partir-do-esqueleto.md).
 Aqui a gente explica o *porquê* de cada passo.
 
-> Nota sobre caminhos: o "mini-cérebro" do repo mora em `.claude/` (uma pasta oculta —
-> use `ls -a` para vê-la). Onde você ler menções antigas a `ai/`, é o mesmo lugar; o
-> endereço mudou, o conteúdo não (ver `docs/adr/0006-cerebro-em-claude.md`).
+> Nota sobre onde as coisas moram: o **manual do molde** (o padrão em si) fica em
+> `docs/`; o **contexto deste projeto** (preenchido ao longo do tempo) fica em `.claude/`
+> (pasta oculta — use `ls -a`). A regra: se descreve o padrão, é `docs/`; se descreve
+> este projeto, é `.claude/`. Ver a decisão 8 em `docs/context/decisoes.md`.
 
 ---
 
@@ -36,8 +37,7 @@ Aqui a gente explica o *porquê* de cada passo.
               ▼
    ┌──────────────────────────────────┐
    │  4. preencha                      │  conte à IA o que ESTE projeto é
-   │  .claude/context/                 │     (negócio, dados, glossário).
-   │  SOBRE-ESTE-PROJETO.md            │
+   │  .claude/context/projeto.md       │     (negócio, dados, glossário).
    └──────────┬───────────────────────┘
               │
               ▼
@@ -61,10 +61,11 @@ num projeto que nunca viu e já sabe onde tudo mora, porque é sempre igual.
 
 Cada projeto real é uma **cópia independente** deste esqueleto. Não existe um repo-mãe
 hospedando vários projetos, nem um gerador externo: você copia, e a cópia é sua, com
-vida própria. E tudo que uma IA precisa para te ajudar já **viaja dentro do repo** — o
-contexto, as regras, os guias de cada camada e os procedimentos passo a passo estão
-versionados em `.claude/`, o "mini-cérebro nativo". Nada depende da cabeça de uma pessoa
-ou de um documento perdido num Drive. Se está no repo, a IA (e você) encontra.
+vida própria. E tudo que uma IA precisa para te ajudar já **viaja dentro do repo**,
+separado pela natureza: o manual do padrão (as regras, os guias de cada camada, os
+procedimentos) está em `docs/`; o contexto do seu projeto (negócio, dados, domínio),
+que você preenche ao longo do tempo, está em `.claude/`. Nada depende da cabeça de uma
+pessoa ou de um documento perdido num Drive. Se está no repo, a IA (e você) encontra.
 
 ---
 
@@ -122,8 +123,8 @@ casca opcional por fora, nunca uma dependência de dentro. Escolha "Não" se voc
 rodar localmente; "Sim" se o projeto vai para o Databricks.
 
 Uma coisa que sobrevive ao toggle em qualquer caso: as **cancelas** do CI (os
-verificadores em `tools/check_*.py`). O CI é o mesmo com ou sem Databricks — ver
-`docs/adr/0007-cancelas-sobrevivem-ao-toggle.md`.
+verificadores em `tools/check_*.py`). O CI é o mesmo com ou sem Databricks — ver a
+decisão 7 em [`docs/context/decisoes.md`](context/decisoes.md).
 
 ### O init não te surpreende
 
@@ -163,12 +164,13 @@ depender de nada instalado.)
 
 ---
 
-## 6. Passo 3 — Preencha `.claude/context/SOBRE-ESTE-PROJETO.md`
+## 6. Passo 3 — Preencha o contexto do projeto em `.claude/context/`
 
-Abra o arquivo [`.claude/context/SOBRE-ESTE-PROJETO.md`](../.claude/context/SOBRE-ESTE-PROJETO.md).
-Ele vem com espaços em branco marcados `<!-- PREENCHER -->`. É aqui que você conta o que
-**este** projeto é: o problema de negócio, de onde vêm os dados, quem são os
-stakeholders e o glossário do domínio (aqueles termos que só quem é de dentro entende).
+Abra [`.claude/context/projeto.md`](../.claude/context/projeto.md) (e, conforme o projeto
+cresce, os vizinhos `glossario.md`, `decisoes.md` e `arquitetura.md`). Eles vêm com
+espaços em branco marcados `<!-- PREENCHER -->`. É aqui que você conta o que **este**
+projeto é: o problema de negócio, de onde vêm os dados, quem são os stakeholders e o
+glossário do domínio (aqueles termos que só quem é de dentro entende).
 
 Por que isso importa tanto? Porque, até você preencher, a IA sabe operar o **padrão** —
 ela conhece a anatomia, as regras, como mexer em cada camada — mas não sabe **nada do
@@ -216,27 +218,28 @@ aponta, gere/aponte um primeiro; o config de exemplo espera um Parquet em
 
 ### Precisa ir além do modelo inicial?
 
-Para as tarefas mais comuns, já existe um procedimento pronto em `.claude/skills/` — não
+Para as tarefas mais comuns, já existe um procedimento pronto em `docs/skills/` — não
 reinvente:
 
-- **Adicionar um novo modelo** → [`adicionar-novo-modelo.md`](../.claude/skills/adicionar-novo-modelo.md)
-- **Adicionar uma nova fonte de dados** (sem tocar no núcleo) → [`adicionar-nova-fonte-de-dados.md`](../.claude/skills/adicionar-nova-fonte-de-dados.md)
-- **Adicionar uma dependência** (pyproject → lock → conda → CI) → [`adicionar-dependencia.md`](../.claude/skills/adicionar-dependencia.md)
+- **Adicionar um novo modelo** → [`adicionar-novo-modelo.md`](skills/adicionar-novo-modelo.md)
+- **Adicionar uma nova fonte de dados** (sem tocar no núcleo) → [`adicionar-nova-fonte-de-dados.md`](skills/adicionar-nova-fonte-de-dados.md)
+- **Adicionar uma dependência** (pyproject → lock → conda → CI) → [`adicionar-dependencia.md`](skills/adicionar-dependencia.md)
 
 ---
 
 ## 8. Onde a IA (e você) se orientam
 
-A porta de entrada é o **[`AGENTS.md`](../AGENTS.md)** na raiz. Qualquer IA que clona o
-repo o lê primeiro e descobre sozinha que existe um padrão a seguir. De lá, ele aponta
-para:
+A porta de entrada é o **[`CLAUDE.md`](../CLAUDE.md)** na raiz. Qualquer IA que clona o
+repo o lê primeiro e descobre sozinha que existe um padrão a seguir. Ele separa as duas
+metades — o **molde** em `docs/` e o **seu projeto** em `.claude/` — e aponta para:
 
-- **`.claude/rules/`** — o que você **pode e não pode** fazer. Comportamento
-  inegociável. Leitura obrigatória antes de mexer em qualquer coisa.
-- **`.claude/guides/`** — como mexer em **cada camada** (config, data, models, common,
+- **`docs/rules/`** — o que você **pode e não pode** fazer. Comportamento inegociável.
+  Leitura obrigatória antes de mexer em qualquer coisa.
+- **`docs/guides/`** — como mexer em **cada camada** (config, data, models, common,
   entrypoints, platform). Quando for editar uma camada, leia o guia dela antes.
-- **`docs/`** — referência sobre o esqueleto, incluindo os ADRs (as decisões de
-  arquitetura já tomadas e por quê).
+- **`docs/context/`** — o que é o esqueleto, sua arquitetura e as decisões já tomadas
+  (em `decisoes.md`) e por quê.
+- **`.claude/context/`** — o contexto do SEU projeto, que você preenche.
 
 ### Um recado final, para você não tropeçar
 
@@ -244,7 +247,7 @@ Boa parte das regras deste repo não é só conselho — é **verificada automat
 CI**. Se você criar um arquivo solto na raiz, ou fizer algum arquivo `import mlflow`
 fora do `orchestrator`/`common/tracking.py`, ou o núcleo importar de `platform/`, **o CI
 barra o seu merge**. Não é implicância: cada uma dessas travas existe por um motivo que
-está escrito em `.claude/rules/`. Se uma cancela te parar, leia a regra correspondente —
+está escrito em `docs/rules/`. Se uma cancela te parar, leia a regra correspondente —
 a mensagem de erro te diz qual é. E, para checar tudo localmente **antes** de commitar,
 rode:
 

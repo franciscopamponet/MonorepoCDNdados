@@ -1,54 +1,34 @@
-# O que é este projeto
+# Sobre ESTE projeto
 
-Este é o **esqueleto (boilerplate) canônico** para projetos de Ciência de Dados do
-núcleo de dados da PoliJúnior. Ele NÃO é um projeto real: é o molde a partir do qual
-cada projeto real nasce.
+> **Template a preencher.** Este arquivo começa em branco de propósito. É onde VOCÊ
+> conta à IA (e a quem chegar depois) o que ESTE projeto é. Enquanto estiver com os
+> `<!-- PREENCHER -->`, a IA sabe operar o *padrão* do esqueleto (documentado em
+> [`docs/`](../../docs/)), mas não sabe nada do seu problema, dos seus dados ou do seu
+> domínio — e vai ter que adivinhar.
+>
+> Este é o contexto do **projeto**. A descrição do **molde** (o esqueleto em si) mora em
+> [`docs/context/projeto.md`](../../docs/context/projeto.md).
 
-## Para que serve
+## Problema de negócio
+<!-- PREENCHER: que pergunta este projeto responde? Que decisão ele apoia? Para quem?
+Ex.: "prever quais clientes vão cancelar no próximo mês, para o time de retenção agir
+antes." Uma pessoa nova deve entender o PORQUÊ do projeto só lendo isto. -->
 
-Padronizar como um projeto de ciência de dados é estruturado, executado e evoluído,
-de modo que qualquer pessoa (ou IA) que clone uma cópia dele entenda e siga o padrão
-**sozinha**, sem depender de conhecimento externo.
+## Fontes de dado
+<!-- PREENCHER: de onde vem o dado (tabelas, arquivos, sistemas), com que granularidade
+e frequência de atualização. Aponte para o config correspondente em config/<modelo>.yaml.
+Ex.: "tabela bronze.vendas no Unity Catalog, uma linha por pedido, atualizada de hora
+em hora." -->
 
-## Princípio-guia: mini-cérebro nativo
+## Modelos deste projeto
+<!-- PREENCHER: liste cada models/<modelo>/ e, em uma linha, o que ele faz. Se ainda só
+existe o modelo inicial do init, diga isso. -->
 
-Toda a inteligência de execução — contexto, rules, guias, skills — viaja DENTRO do
-repo, como arquivos versionados em `.claude/`. Se algo depende de conhecimento externo
-(a cabeça de uma pessoa, um vault pessoal, um doc no Drive) para funcionar, está errado.
+## Stakeholders
+<!-- PREENCHER: quem pede, quem usa e quem mantém. Nome/time e o que cada um espera.
+Ex.: "dono do produto: fulano (retenção); consumidor: painel do time de CS." -->
 
-## Como se usa
-
-1. **Copie** este esqueleto para um novo diretório (cópia independente — ver
-   [decisoes.md](decisoes.md), decisão 0). Não há repo-mãe hospedando N projetos.
-2. **Rode `tools/init.py` uma única vez.** Ele pergunta o toggle Databricks (S/N),
-   poda a pasta `platform/` se Não, define o modo dos `entrypoints/` e nomeia o projeto.
-3. **Comece a trabalhar** dentro da estrutura já pronta: config por modelo em `config/`,
-   modelos em `models/<nome>/` (anatomia de 5 arquivos), lógica compartilhada em `common/`.
-
-Passo a passo detalhado na skill
-[`iniciar-projeto-novo-a-partir-do-esqueleto.md`](../skills/iniciar-projeto-novo-a-partir-do-esqueleto.md).
-
-## Estado atual (o esqueleto está VIVO)
-
-Todas as camadas existem e o pipeline foi **validado ponta a ponta nos dois toggles**
-(Databricks Sim e Não): `init.py` → `uv sync` → treino/avaliação → logging via MLflow,
-com a suíte de testes e as cancelas de CI verdes nas duas cópias.
-
-- **Modelo de referência**: [`models/exemplo_modelo/`](../../models/exemplo_modelo/) —
-  um classificador (RandomForest) completo na anatomia de 5 arquivos, com config em
-  [`config/exemplo_modelo.yaml`](../../config/exemplo_modelo.yaml).
-- **Núcleo**: `common/` (config pydantic, `Protocol DataSource` + factory, `Tracker` de
-  MLflow, splits), `data/sources/` (Parquet/Spark/SQL), `entrypoints/` (local/serverless).
-- **Cancelas de CI**: `tools/check.py` roda tudo (ruff, pytest, raiz mínima, manifesto
-  em sync, isolamento de MLflow e de plataforma). Ver `.github/workflows/ci.yml`.
-- **MLflow**: default local é backend **SQLite** (o file store `./mlruns` foi
-  descontinuado). O caminho Databricks ainda **não** foi validado em workspace real
-  (ver nota em `common/tracking.py`).
-
-## O que ler antes de mexer
-
-- [arquitetura.md](arquitetura.md) — a estrutura-alvo e os invariantes.
-- [decisoes.md](decisoes.md) — as decisões já ratificadas (não reabrir).
-- `../rules/` — comportamento inegociável. **Leitura obrigatória antes de qualquer alteração.**
-- `../guides/` — um guia por camada (config, data, models, common, entrypoints, platform).
-- `../skills/` — procedimentos passo a passo para as tarefas comuns.
+## Onde está o resto do contexto deste projeto
+- Glossário do domínio → [`glossario.md`](glossario.md)
+- Decisões específicas deste projeto → [`decisoes.md`](decisoes.md)
+- Arquitetura/particularidades deste projeto → [`arquitetura.md`](arquitetura.md)

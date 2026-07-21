@@ -1,7 +1,7 @@
 """Launcher fino — execução via PLATAFORMA / serverless (toggle Databricks = Sim).
 
 Papel: parsear o caminho do config e chamar o orchestrator. Nada além disso.
-Zero lógica de negócio (ver `.claude/guides/entrypoints.md`).
+Zero lógica de negócio (ver `docs/guides/entrypoints.md`).
 
 Só faz sentido com o toggle = Sim; o `tools/init.py` poda este arquivo se o toggle
 for Não. O núcleo chamado aqui é EXATAMENTE o mesmo do `run_local.py` — a diferença

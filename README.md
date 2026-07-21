@@ -14,10 +14,11 @@ nada, da cópia do repositório até o primeiro pipeline rodando.
 
 ## O que é
 
-Este projeto nasceu como **cópia independente** do esqueleto canônico. Toda a
-inteligência de execução (contexto, rules, guias) mora em [`.claude/`](.claude/) — o
-"mini-cérebro nativo". A porta de entrada para IAs é o [`AGENTS.md`](AGENTS.md); a porta
-de entrada para pessoas é o [Guia do Analista](docs/GUIA-DO-ANALISTA.md).
+Este projeto nasceu como **cópia independente** do esqueleto canônico. A documentação
+está separada pela natureza: o **manual do molde** (como o esqueleto é composto e como
+se mexe nele) mora em [`docs/`](docs/); o **contexto deste projeto** (negócio, dados,
+domínio), preenchido ao longo do tempo, mora em [`.claude/`](.claude/). O ponto de
+entrada único, para IA ou pessoa, é o [`CLAUDE.md`](CLAUDE.md).
 
 ## Como começar (a partir do esqueleto)
 
@@ -34,7 +35,7 @@ de entrada para pessoas é o [Guia do Analista](docs/GUIA-DO-ANALISTA.md).
    uv sync
    ```
 4. Comece a trabalhar dentro da estrutura pronta. Passo a passo completo na skill
-   [`iniciar-projeto-novo-a-partir-do-esqueleto.md`](.claude/skills/iniciar-projeto-novo-a-partir-do-esqueleto.md).
+   [`iniciar-projeto-novo-a-partir-do-esqueleto.md`](docs/skills/iniciar-projeto-novo-a-partir-do-esqueleto.md).
 
 ## Como rodar
 
@@ -55,19 +56,24 @@ python3 tools/check.py     # ruff + pytest + raiz mínima + manifesto + isolamen
 
 ## Onde ficam as regras
 
-**A leitura de [`.claude/rules/`](.claude/rules/) é obrigatória antes de qualquer alteração.**
+**A leitura de [`docs/rules/`](docs/rules/) é obrigatória antes de qualquer alteração.**
 
-- Contexto e arquitetura: [`.claude/context/`](.claude/context/)
-- Rules (o que pode/não pode): [`.claude/rules/`](.claude/rules/)
-- Guias por etapa: [`.claude/guides/`](.claude/guides/)
-- Skills (procedimentos passo a passo): [`.claude/skills/`](.claude/skills/)
-- Decisões de arquitetura: [`docs/adr/`](docs/adr/)
+Documentação do **molde** (em [`docs/`](docs/)):
+
+- Contexto e arquitetura: [`docs/context/`](docs/context/)
+- Rules (o que pode/não pode): [`docs/rules/`](docs/rules/)
+- Guias por etapa: [`docs/guides/`](docs/guides/)
+- Skills (procedimentos passo a passo): [`docs/skills/`](docs/skills/)
+- Decisões de arquitetura: [`docs/context/decisoes.md`](docs/context/decisoes.md)
+
+Contexto **deste projeto** (em [`.claude/`](.claude/), a preencher): problema de
+negócio, dados, glossário do domínio e decisões da cópia.
 
 > `.claude/` é uma pasta oculta — use `ls -a` para enxergá-la.
 
 ## Estrutura
 
-Ver [`.claude/context/arquitetura.md`](.claude/context/arquitetura.md) para a estrutura-alvo
+Ver [`docs/context/arquitetura.md`](docs/context/arquitetura.md) para a estrutura-alvo
 completa e os invariantes.
 
 ---
